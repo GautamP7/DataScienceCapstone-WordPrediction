@@ -1,0 +1,39 @@
+---
+title: "Data Science Capstone: Course Project"
+author: "Gautam"
+date: "22 February 2019"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Description
+
+The goal of this exercise is to create a product to highlight the prediction algorithm that you have built and to provide an interface that can be accessed by others. For this project you must submit:  
+
+A Shiny app that takes as input a phrase (multiple words) in a text box input and outputs a prediction of the next word.
+A slide deck consisting of no more than 5 slides created with [R Studio Presenter](https://support.rstudio.com/hc/en-us/articles/200486468-Authoring-R-Presentations) pitching your algorithm and app as if you were presenting to your boss or an investor.
+
+## Algorithm
+
+- A subset of the original data was sampled from the three sources (blogs, twitter and news) which was then merged into one.  
+- The sampled data was cleaned by converting to lowercase, stripping white spaces, and removing punctuation and numbers.  
+- The corresponding n-grams were then created (Quadgram, Trigram and Bigram).
+- The term-count tables were extracted from the n-grams and sorted according to the frequency in descending order, and were saved as R-Compressed files (.RData files).  
+- The [N-gram model](http://www.cs.columbia.edu/~smaskey/CS6998-0412/supportmaterial/langmodel_mapreduce.pdf) with “Stupid Backoff” was used, which checks if highest-order (in this case, n = 4) n-gram has been seen. If not, it “degrades” to a lower-order model (n = 3, 2).
+
+## Application Overview
+
+Given a phrase, the Shiny application predicts the next possible word for the phrase and provides 2-3 suggestions.  
+
+The predicted word is obtained from the n-grams matrices, comparing it with tokenized frequency of 2, 3 and 4 gram sequences.  
+
+The application is reactive and provides suggestions as soon as the user starts typing the first word of the phrase.
+
+## App and Source files
+
+The application can be accessed [here](https://gautamp7.shinyapps.io/TextPred/).
+
+The source code can be accessed on [Github](https://github.com/GautamP7/DataScienceCapstone-WordPrediction).
